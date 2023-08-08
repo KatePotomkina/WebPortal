@@ -14,7 +14,6 @@ public class MappingProfile:Profile
         CreateMap<Order, OrderRersponse>()
             .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Customer.CustomerId))
             .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer))
-            .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
             ;
         CreateMap<Customer, CustomerResponse>();
         CreateMap<Product, ProductResponse>();

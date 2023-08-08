@@ -9,7 +9,7 @@ public partial class Order
 
     public DateTime CreatedAt { get; set; }
 
-    public decimal TotalCost { get; set; }
+    public decimal? TotalCost { get; set; }
 
     public string Comment { get; set; } = null!;
 

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using BackPart.Data.DTO.Response;
 using BackPart.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,10 +36,42 @@ public class OrderService : IOrderService
 
     public async Task<Order> AddNewOrder(Order newOrder)
     {
-        _context.Orders.Add(newOrder); // Use Add method if not using async
+        /*_context.Orders.Add(newOrder); // Use Add method if not using async
         await _context.SaveChangesAsync(); // Make sure to await the SaveChangesAsync
 
-        return newOrder;
+        return newOrder;*/
+        var order = new Order
+        {
+            //OrderId = newOrderDto.OrderId,
+            CustomerId = newOrder.CustomerId,
+            CreatedAt = newOrder.CreatedAt,
+            OrderItems = newOrder.OrderItems.ToList().Select(s => new OrderItem
+            {
+                ProductId = '1',
+                Quantity = '2'
+
+
+            }).ToList(),
+            TotalCost = newOrder.OrderItems.Sum(orderItem =>
+                _context.Products.First(p => p.ProductId == orderItem.ProductId).Price * orderItem.Quantity),
+            Comment = newOrder.Comment,
+            CurrentStatus = newOrder.CurrentStatus
+        };
+
+        await _context.AddAsync(order);
+        var orderResponse = _mapper.Map<OrderRersponse>(order);
+        return order;
+    }
+    
+
+    public decimal CalculateTotalCostAndMapToDto()
+    {
+        var order = new Order();
+
+        var totalCost = order.OrderItems.Sum(orderItem =>
+            orderItem.Product.Price * orderItem.Quantity);
+
+        return totalCost;
     }
 
 }

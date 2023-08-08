@@ -52,17 +52,20 @@ namespace BackPart.Controllers
                 CreatedAt = newOrderDto.CreatedAt,
                 OrderItems = newOrderDto.OrderItems.ToList().Select(s => new OrderItem
                 {
-                    ProductId = s.ProductId,
-                    Quantity = s.Quantity
+                    ProductId = '1',
+                    Quantity = '2'
+                    
                     
                 }).ToList(),
                 TotalCost = newOrderDto.TotalCost,
                 Comment = newOrderDto.Comment,
                 CurrentStatus = newOrderDto.CurrentStatus
             };
+           
             await _orderService.AddNewOrder(order);
             var orderResponse = _mapper.Map<OrderRersponse>(order);
             return Ok(orderResponse);
+            
         }
     }
 }

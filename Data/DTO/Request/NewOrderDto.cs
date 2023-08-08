@@ -8,6 +8,9 @@ public class NewOrderDto
     public string Comment { get; set; }
     public string CurrentStatus { get; set; }
     public int CustomerId { get; set; }
+    /*
+    public NewProductDto Products { get; set; }
+    */
     public List<NewOrderItemDto> OrderItems { get; set; }
 
 }

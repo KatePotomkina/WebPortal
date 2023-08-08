@@ -11,7 +11,7 @@ public partial class Product
 
     public string? Category { get; set; }
 
-    public decimal? Price { get; set; }
+    public decimal  Price { get; set; }
 
     public string? Size { get; set; }
 
